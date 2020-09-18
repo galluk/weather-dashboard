@@ -1,0 +1,114 @@
+/** @format */
+
+.mainHeading {
+  background-color: rgb(50, 50, 50);
+  color: white;
+  text-align: center;
+  padding: 0px 0px 5px 0px;
+}
+
+.headingRow {
+    padding: 0px;
+}
+
+#colSearch {
+  background-color: rgb(250, 250, 250);
+}
+
+.btnSearch {
+  background-color: DodgerBlue;
+  color: white;
+}
+
+.cityList ul {
+  list-style-type: none;
+  padding-left: 0px;
+  margin-top: 5px;
+}
+
+.cityList li {
+  background-color: white;
+  border: lightgrey solid 1px;
+  height: 2.5em;
+  padding-left: 10px;
+  line-height: 2.5em;
+  width: 100%;
+}
+
+#colResults {
+  padding: 0px;
+}
+.current {
+  border: lightgrey solid 1px;
+  padding: 10px;
+}
+
+.dayHeader {
+  width: 100%;
+  height: 55px;
+  padding-bottom: 5px;
+}
+
+.dayHeader img {
+  float: left;
+}
+
+.dayHeader h4 {
+  float: left;
+  margin: 0px;
+  height: 50px;
+  line-height: 50px;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: nowrap;
+  background-color: white;
+}
+
+.flex-container div {
+  background-color: DodgerBlue;
+  width: 20%;
+  margin: 10px;
+  text-align: left;
+  /* line-height: 125px; */
+  font-size: 16px;
+  color: white;
+}
+
+.dayDiv {
+  padding: 10px;
+}
+
+/* uv ranges */
+#spanUV {
+    display: inline-block;
+    width: 5em;
+    text-align: center;
+    height: 24px;
+}
+
+.low {
+  background-color: green;
+  color: white;
+}
+
+.moderate {
+  background-color: yellow;
+  color: black;
+}
+
+.high {
+  background-color: orange;
+  color: black;
+}
+
+.veryhigh {
+  background-color: red;
+  color: white;
+}
+
+.extreme {
+  background-color: violet;
+  color: white;
+}

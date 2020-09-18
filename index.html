@@ -10,8 +10,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="Assets/style.css" />
   </head>
   <body>
     <div class="container">
@@ -37,10 +39,12 @@
         <div class="col-md-9" id="colResults">
           <div class="searchResults">
             <div class="current">
+              <div class="dayHeader">
                 <h4 id="hCity">City</h4>
                 <img src="" id="iCurrent" />
+              </div>
               <div class="dayDetails">
-                <p id="pTemp">Temperature: <span id="spanTemp"></span> C</p>
+                <p id="pTemp">Temperature: <span id="spanTemp"></span> &#8451;</p>
                 <p id="pHumidity">Humidity: <span id="spanHum"></span>%</p>
                 <p id="pWindSpeed">Wind Speed: <span id="spanWind"></span> MPH</p>
                 <p class="pUV">UV Index: <span id="spanUV"></span></p>
@@ -52,8 +56,32 @@
                 <div class="dayDiv" id="Day1">
                   <h5 id="hDay1">Today</h5>
                   <img src="" id="iDay1" />
-                  <p>Temp: <span id="spanTemp1"></span> C</p>
+                  <p>Temp: <span id="spanTemp1"></span> &#8451;</p>
                   <p>Humidity: <span id="spanHum1"></span>%</p>
+                </div>
+                <div class="dayDiv" id="Day2">
+                  <h5 id="hDay2">Today</h5>
+                  <img src="" id="iDay2" />
+                  <p>Temp: <span id="spanTemp2"></span> &#8451;</p>
+                  <p>Humidity: <span id="spanHum2"></span>%</p>
+                </div>
+                <div class="dayDiv" id="Day3">
+                  <h5 id="hDay3">Today</h5>
+                  <img src="" id="iDay3" />
+                  <p>Temp: <span id="spanTemp3"></span> &#8451;</p>
+                  <p>Humidity: <span id="spanHum3"></span>%</p>
+                </div>
+                <div class="dayDiv" id="Day4">
+                  <h5 id="hDay4">Today</h5>
+                  <img src="" id="iDay4" />
+                  <p>Temp: <span id="spanTemp4"></span> &#8451;</p>
+                  <p>Humidity: <span id="spanHum4"></span>%</p>
+                </div>
+                <div class="dayDiv" id="Day5">
+                  <h5 id="hDay5">Today</h5>
+                  <img src="" id="iDay5" />
+                  <p>Temp: <span id="spanTemp5"></span> &#8451;</p>
+                  <p>Humidity: <span id="spanHum5"></span>%</p>
                 </div>
               </div>
             </div>
@@ -65,6 +93,6 @@
     </div>
     <!-- end main container -->
     ​
-    <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript" src="Assets/main.js"></script>
   </body>
 </html>
