@@ -1,0 +1,70 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Weather Dashboard</title>
+    <!-- Bring in the bootstrap CSS via the Bootstrap CDN-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row" id="rwHeading">
+        <div class="col-md-12 headingRow">
+          <h1 class="mainHeading">Weather Dashboard</h1>
+        </div>
+      </div>
+      <div class="row" id="rwContentArea">
+        <!-- column for the search aside -->
+        <div class="col-md-3" id="colSearch">
+          <aside class="asideSearch">
+            <h5>Search for a City:</h5>
+            <input type="text" id="citySearch" />
+            <button class="btn btnSearch" id="btnSearch"><i class="fas fa-search"></i></button>
+            <div class="cityList">
+              <ul id="listHistory"></ul>
+            </div>
+          </aside>
+        </div>
+
+        <!-- column for the search results -->
+        <div class="col-md-9" id="colResults">
+          <div class="searchResults">
+            <div class="current">
+                <h4 id="hCity">City</h4>
+                <img src="" id="iCurrent" />
+              <div class="dayDetails">
+                <p id="pTemp">Temperature: <span id="spanTemp"></span> C</p>
+                <p id="pHumidity">Humidity: <span id="spanHum"></span>%</p>
+                <p id="pWindSpeed">Wind Speed: <span id="spanWind"></span> MPH</p>
+                <p class="pUV">UV Index: <span id="spanUV"></span></p>
+              </div>
+            </div>
+            <div class="forecast">
+              <h3>5-Day Forecast:</h3>
+              <div class="flex-container">
+                <div class="dayDiv" id="Day1">
+                  <h5 id="hDay1">Today</h5>
+                  <img src="" id="iDay1" />
+                  <p>Temp: <span id="spanTemp1"></span> C</p>
+                  <p>Humidity: <span id="spanHum1"></span>%</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end of results col -->
+      </div>
+      <!-- end of row -->
+    </div>
+    <!-- end main container -->
+    ​
+    <script type="text/javascript" src="main.js"></script>
+  </body>
+</html>
