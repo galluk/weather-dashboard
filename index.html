@@ -24,19 +24,20 @@
       </div>
       <div class="row" id="rwContentArea">
         <!-- column for the search aside -->
-        <div class="col-md-3" id="colSearch">
+        <div class="col-md-4" id="colSearch">
           <aside class="asideSearch">
             <h6>Search for a City:</h6>
             <input type="text" id="citySearch" />
-            <button class="btn btnSearch" id="btnSearch"><i class="fas fa-search"></i></button>
-            <div class="cityList">
+            <button type="button" class="btn btnAside" id="btnSearch"><i class="fas fa-search"></i></button>
+            <button type="button" class="btn btnAside btn-outline-secondary btn-md" id="btnClear"><i class="fas fa-trash-alt"></i></button>
+          <div class="cityList">
               <ul id="listHistory"></ul>
             </div>
           </aside>
         </div>
 
         <!-- column for the search results -->
-        <div class="col-md-9" id="colResults">
+        <div class="col-md-8" id="colResults">
           <div class="searchResults">
             <div class="current">
               <div class="dayHeader">

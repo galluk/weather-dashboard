@@ -21,7 +21,7 @@ function getUVIndexRisk(uvValue) {
 
 // get the correct class for css styling to display the uv index span background colour
 function updateUVindex(val) {
-    $("#spanUV").text(val);
+    $("#spanUV").text(val.toFixed(2));
     // remove the last used class
     $("#spanUV").removeClass(lastUVIndexClass);
     // get and add the correct class for rendering
@@ -97,14 +97,13 @@ function updateCurrentWeather(resp) {
 
 // load the history from local storage and fill the history list
 function loadHistory() {
+    clearDisplay();
+
     var storedHistory = localStorage.getItem(HISTORY_STORAGE_NAME);
 
     if (storedHistory) {
         searchHistory = JSON.parse(storedHistory);
     }
-
-    // add the history to the list on the page, clearing it first
-    listHistory.innerHTML = "";
 
     if (searchHistory.length > 0) {
         // add the items loaded from storage
@@ -117,6 +116,30 @@ function loadHistory() {
         }
         // and show the last searched city
         getCityWeather(searchHistory[searchHistory.length - 1], false);
+    }
+}
+
+function clearDisplay() {
+    listHistory.innerHTML = "";
+
+    // clear current
+    $("#hCity").text("City");
+    $("#iCurrent").attr("src", "");
+    $("#spanTemp").text("");
+    $("#spanHum").text("");
+    $("#spanWind").text("");
+    $("#spanUV").text("");
+    // remove the last used class
+    $("#spanUV").removeClass(lastUVIndexClass);
+    // get and add the correct class for rendering
+    lastUVIndexClass = '';
+
+    //clear forecast
+    for (var i = 1; i < 6; i++) {
+        $("#hDay" + i).text("");
+        $("#iDay" + i).attr("src", "");
+        $("#spanTemp" + i).text("");
+        $("#spanHum" + i).text("");
     }
 }
 
@@ -164,6 +187,16 @@ $("#btnSearch").on("click", function () {
     getCityWeather($("#citySearch").val().trim(), true);
 });
 
+// event handler for clear button
+$("#btnClear").on("click", function () {
+    // empty the arry
+    searchHistory = [];
+    // then save
+    localStorage.setItem(HISTORY_STORAGE_NAME, JSON.stringify(searchHistory));
+
+    loadHistory();
+});
+
 // event handler for the search history list
 $(function () {
     // do the mouse pointer change
@@ -173,3 +206,6 @@ $(function () {
             getCityWeather($(this).text(), false);
         });
 });
+
+// todo - add the mouse over/click for recent additions to the history
+// add clear history function

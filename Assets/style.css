@@ -15,9 +15,11 @@
   background-color: rgb(250, 250, 250);
 }
 
-.btnSearch {
+.btnAside {
   background-color: DodgerBlue;
   color: white;
+  height: 30px;
+  padding: 0px 12px;
 }
 
 .cityList ul {
@@ -71,7 +73,6 @@
   width: 20%;
   margin: 10px;
   text-align: left;
-  /* line-height: 125px; */
   font-size: 16px;
   color: white;
 }
@@ -85,7 +86,8 @@
     display: inline-block;
     width: 5em;
     text-align: center;
-    height: 24px;
+    height: 30px;
+    line-height: 30px;
 }
 
 .low {
