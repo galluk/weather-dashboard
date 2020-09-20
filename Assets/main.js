@@ -1,6 +1,6 @@
 // my openweather api key: 4b7ebd856fc09df0dc4916c482ff2e47
 // https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={your api key}
-// http://api.openweathermap.org/data/2.5/onecall?lat=-33.87&lon=151.21&exclude=minutely,hourly&appid=4b7ebd856fc09df0dc4916c482ff2e47
+// http://api.openweathermap.org/data/2.5/onecall?lat=-33.87&lon=151.21&exclude=minutely,hourly&appid={your api key}
 const BASE_ICON_URL = "http://openweathermap.org/img/wn/";
 const APPEND_ICON_URL = ".png"
 const HISTORY_STORAGE_NAME = "search-history";
@@ -70,8 +70,10 @@ function getCityForecast(latitude, longitude) {
     }).then(function (response) {
         // console.log(response);
         updateForecast(response);
-    });
-}
+    }).fail(function () {
+        // if nothing came back alert user and focus and select the search input control
+        alert("No forecast data can be found for the city of '" + cityName + "'.");
+    });}
 
 // the provided temps are in Kelvin so convert to Celsius for display
 function kelvinToDegreesC(temp) {
@@ -133,14 +135,15 @@ function reorderHistoryList(itemName) {
     if (itemIndex !== -1) {
         searchHistory.splice(itemIndex, 1);
         searchHistory.push(itemName);
-    }
 
-    // redo the list
-    constructHistoryList();
-    // and save
-    localStorage.setItem(HISTORY_STORAGE_NAME, JSON.stringify(searchHistory));
+        // redo the list
+        constructHistoryList();
+        // and save
+        localStorage.setItem(HISTORY_STORAGE_NAME, JSON.stringify(searchHistory));
+    }
 }
 
+// empty the display elements of info
 function clearDisplay() {
     listHistory.innerHTML = "";
 
@@ -154,8 +157,6 @@ function clearDisplay() {
 
     // remove the last used class
     $("#spanUV").removeClass(lastUVIndexClass);
-
-    // remove the class for rendering uv index
     lastUVIndexClass = '';
 
     //clear forecast
@@ -165,10 +166,6 @@ function clearDisplay() {
         $("#spanTemp" + i).text("");
         $("#spanHum" + i).text("");
     }
-}
-
-function historyItemClick(event) {
-    getCityWeather($(event.ele).text(), false);
 }
 
 // add the given itemName to the search history list and local storage
@@ -207,7 +204,7 @@ function getCityWeather(cityName, saveItem) {
         if (saveItem) {
             saveSearchItem(response.name);
         }
-    }).fail(function (response) {
+    }).fail(function () {
         // if nothing came back alert user and focus and select the search input control
         alert("No data can be found for the city of '" + cityName + "'. Check the spelling and try again.");
         $("#citySearch").select();
@@ -243,12 +240,12 @@ $("#btnClear").on("click", function () {
 });
 
 // event handler for the search history list
-$("#listHistory").on("click", "li", function () {
+$(listHistory).on("click", "li", function () {
     // and get the weather for the item clicked on without saving
     getCityWeather($(this).text(), false);
     reorderHistoryList($(this).text());
 });
 
-$("#listHistory").hover(function () {
+$(listHistory).hover(function () {
     $(this).css('cursor', 'pointer');
 });
