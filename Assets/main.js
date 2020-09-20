@@ -42,7 +42,7 @@ function updateForecast(resp) {
         maxNumDays = 5;
     }
 
-    // check for max number of days (it it's 0 none will be done)
+    // check for max number of days (if it's 0 none will be done)
     for (var i = 1; i <= maxNumDays; i++) {
         // show the date. Using i-1 as the start is from 1 to get the corresponding elements
         var forecastDate = dayjs.unix(resp.daily[i - 1].dt);
@@ -58,7 +58,7 @@ function updateForecast(resp) {
     }
 }
 
-// call hte openweather api to ge tthe 5 day forecast data
+// call the openweather api to get the 5 day forecast data
 function getCityForecast(latitude, longitude) {
     // get the 5 day forecast using the lat/long from previous call. Exclude minute and hour data as not needed.
     var searchParams = "lat=" + latitude + "&lon=" + longitude + "&exclude=minutely,hourly"
@@ -95,6 +95,19 @@ function updateCurrentWeather(resp) {
     $("#spanWind").text(resp.wind.speed);
 }
 
+// create the search history list items from the array 
+function constructHistoryList() {
+    listHistory.innerHTML = "";
+    // add the items 
+    for (var i = 0; i < searchHistory.length; i++) {
+        // add item to the list
+        var li = $("<li>");
+        $(li).text(searchHistory[i]);
+        // prepend so they are in order of the most recently used first
+        $(listHistory).prepend(li);
+    }
+}
+
 // load the history from local storage and fill the history list
 function loadHistory() {
     clearDisplay();
@@ -106,17 +119,26 @@ function loadHistory() {
     }
 
     if (searchHistory.length > 0) {
-        // add the items loaded from storage
-        for (var i = 0; i < searchHistory.length; i++) {
-            // add item to the list
-            var li = $("<li>");
-            $(li).text(searchHistory[i]);
-            // prepend so they are in order of the most recently used first
-            $(listHistory).prepend(li);
-        }
+        constructHistoryList();
         // and show the last searched city
         getCityWeather(searchHistory[searchHistory.length - 1], false);
     }
+}
+
+// when user clicks a history item move it to the top of the list
+function reorderHistoryList(itemName) {
+    var itemIndex = searchHistory.indexOf(itemName);
+
+    // move the item
+    if (itemIndex !== -1) {
+        searchHistory.splice(itemIndex, 1);
+        searchHistory.push(itemName);
+    }
+
+    // redo the list
+    constructHistoryList();
+    // and save
+    localStorage.setItem(HISTORY_STORAGE_NAME, JSON.stringify(searchHistory));
 }
 
 function clearDisplay() {
@@ -129,9 +151,11 @@ function clearDisplay() {
     $("#spanHum").text("");
     $("#spanWind").text("");
     $("#spanUV").text("");
+
     // remove the last used class
     $("#spanUV").removeClass(lastUVIndexClass);
-    // get and add the correct class for rendering
+
+    // remove the class for rendering uv index
     lastUVIndexClass = '';
 
     //clear forecast
@@ -143,17 +167,28 @@ function clearDisplay() {
     }
 }
 
-// add the given itemName to the seacrh history list and local storage
-function saveSearchItem(itemName) {
-    // add the item to the list
-    var li = $("<li>");
-    $(li).text(itemName);
-    $(listHistory).prepend(li);
+function historyItemClick(event) {
+    getCityWeather($(event.ele).text(), false);
+}
 
-    // and add it to memory
-    searchHistory.push(itemName);
-    // then save
-    localStorage.setItem(HISTORY_STORAGE_NAME, JSON.stringify(searchHistory));
+// add the given itemName to the search history list and local storage
+function saveSearchItem(itemName) {
+    // only add ones that aren't there
+    if (searchHistory.indexOf(itemName) === -1) {
+        // add the item to the list
+        var li = $("<li>");
+        $(li).text(itemName);
+        $(listHistory).prepend(li);
+
+        // and add it to memory
+        searchHistory.push(itemName);
+        // then save
+        localStorage.setItem(HISTORY_STORAGE_NAME, JSON.stringify(searchHistory));
+    }
+    else {
+        // it's already in the list so reorder
+        reorderHistoryList(itemName);
+    }
 }
 
 // call the weather api for the given cityName, saving the search to history if saveItem is true
@@ -166,14 +201,14 @@ function getCityWeather(cityName, saveItem) {
         url: queryCurrent,
         method: "GET",
     }).then(function (response) {
-        console.log(response);
+        // console.log(response);
         updateCurrentWeather(response);
         getCityForecast(response.coord.lat, response.coord.lon);
         if (saveItem) {
             saveSearchItem(response.name);
         }
     }).fail(function (response) {
-        // if nothing cam back alert user and focus and select the search input control
+        // if nothing came back alert user and focus and select the search input control
         alert("No data can be found for the city of '" + cityName + "'. Check the spelling and try again.");
         $("#citySearch").select();
     });
@@ -187,6 +222,16 @@ $("#btnSearch").on("click", function () {
     getCityWeather($("#citySearch").val().trim(), true);
 });
 
+// event handler for user pressing enter in hte search input
+$("#citySearch").on("keyup", function (event) {
+    // Number 13 is the "Enter" key on the keyboard
+    if (event.keyCode === 13) {
+        // Cancel the default action, if needed
+        event.preventDefault();
+        getCityWeather($("#citySearch").val().trim(), true);
+    }
+});
+
 // event handler for clear button
 $("#btnClear").on("click", function () {
     // empty the arry
@@ -194,18 +239,16 @@ $("#btnClear").on("click", function () {
     // then save
     localStorage.setItem(HISTORY_STORAGE_NAME, JSON.stringify(searchHistory));
 
-    loadHistory();
+    clearDisplay();
 });
 
 // event handler for the search history list
-$(function () {
-    // do the mouse pointer change
-    $('li').css('cursor', 'pointer')
-        // and get the weather for the item clicked on without saving
-        .click(function () {
-            getCityWeather($(this).text(), false);
-        });
+$("#listHistory").on("click", "li", function () {
+    // and get the weather for the item clicked on without saving
+    getCityWeather($(this).text(), false);
+    reorderHistoryList($(this).text());
 });
 
-// todo - add the mouse over/click for recent additions to the history
-// add clear history function
+$("#listHistory").hover(function () {
+    $(this).css('cursor', 'pointer');
+});
