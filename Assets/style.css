@@ -1,14 +1,30 @@
 /** @format */
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+.wrapper {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 .mainHeading {
   background-color: rgb(50, 50, 50);
   color: white;
   text-align: center;
-  padding: 0px 0px 5px 0px;
+  padding: 5px 0px 5px 0px;
+  margin: 8px 0px 0px 0px;
+  width: 100%;
 }
 
 .headingRow {
-    padding: 0px;
+  padding: 0px;
 }
 
 #colSearch {
@@ -37,11 +53,12 @@
   width: 100%;
 }
 
-#colResults {
-  padding: 0px;
-}
 .current {
   border: lightgrey solid 1px;
+  padding: 10px;
+}
+
+.forecast {
   padding: 10px;
 }
 
@@ -62,32 +79,30 @@
   line-height: 50px;
 }
 
-.flex-container {
+.flex-grid {
   display: flex;
-  flex-wrap: nowrap;
+  /* flex-wrap: nowrap; */
   background-color: white;
 }
 
-.flex-container div {
+.flex-grid div {
   background-color: DodgerBlue;
-  width: 20%;
-  margin: 10px;
+  /* width: 20%; */
+  flex: 1;
+  margin: 5px 10px 0px 0px;
+  padding: 5px;
   text-align: left;
   font-size: 16px;
   color: white;
 }
 
-.dayDiv {
-  padding: 10px;
-}
-
 /* uv ranges */
 #spanUV {
-    display: inline-block;
-    width: 5em;
-    text-align: center;
-    height: 30px;
-    line-height: 30px;
+  display: inline-block;
+  width: 5em;
+  text-align: center;
+  height: 30px;
+  line-height: 30px;
 }
 
 .low {
@@ -113,4 +128,48 @@
 .extreme {
   background-color: violet;
   color: white;
+}
+
+/*  ********************* media queries ********************* */
+@media (max-width: 690px) {
+  h1,
+  h2 {
+    font-size: 1.6rem;
+  }
+
+  .container {
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 100%;
+  }
+
+  .searchResults {
+    /* padding-top: 5px; */
+    /* margin: 5px; */
+    width: 100%;
+  }
+
+  .current {
+    /* margin: 0px 10px; */
+    padding: 5px;
+    width: 100%;
+  }
+
+  .row {
+    padding-top: 5px;
+    width: 100%;
+  }
+
+  .forecast {
+    padding: 5px;
+  }
+
+  .flex-grid {
+    display: block;
+    width: 100%;
+  }
+  .flex-grid div {
+    margin: 10px 5px 0px 0px;
+  }      
 }

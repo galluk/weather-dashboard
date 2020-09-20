@@ -10,21 +10,27 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+    <!-- ajax/jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- dayjs for date formatting -->
     <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- siate style sheet -->
     <link rel="stylesheet" type="text/css" media="screen" href="Assets/style.css" />
   </head>
   <body>
     <div class="container">
-      <div class="row" id="rwHeading">
+      <header>
+        <h1 class="mainHeading">Weather Dashboard</h1>
+  
+      </header>
+      <!-- <div class="row" id="rwHeading">
         <div class="col-md-12 headingRow">
-          <h1 class="mainHeading">Weather Dashboard</h1>
         </div>
-      </div>
+      </div> -->
       <div class="row" id="rwContentArea">
         <!-- column for the search aside -->
-        <div class="col-md-4" id="colSearch">
+        <div class="col-sm-4" id="colSearch">
           <aside class="asideSearch">
             <h6>Search for a City:</h6>
             <input type="text" id="citySearch" />
@@ -37,7 +43,7 @@
         </div>
 
         <!-- column for the search results -->
-        <div class="col-md-8" id="colResults">
+        <div class="col-sm-8" id="colResults">
           <div class="searchResults">
             <div class="current">
               <div class="dayHeader">
@@ -53,7 +59,7 @@
             </div>
             <div class="forecast">
               <h5>5-Day Forecast:</h5>
-              <div class="flex-container">
+              <div class="flex-grid">
                 <div class="dayDiv" id="Day1">
                   <h6 id="hDay1">Today</h6>
                   <img src="" id="iDay1" />
